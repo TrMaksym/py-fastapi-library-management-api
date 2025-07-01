@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from typing import Optional
 
 import models, schemas
 
@@ -20,7 +21,7 @@ def get_book(db: Session, book_id: int):
     return db.query(models.Book).filter(models.Book.id == book_id).first()
 
 
-def get_books(db: Session, skip: int = 0, limit: int = 10, author_id: int | None = None):
+def get_books(db: Session, skip: int = 0, limit: int = 10, author_id: Optional[int] = None):
     query = db.query(models.Book)
     if author_id:
         query = query.filter(models.Book.author_id == author_id)
